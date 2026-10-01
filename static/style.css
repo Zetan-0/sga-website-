@@ -9,13 +9,13 @@ header {
     background-color: #7d031f;
     color: white;
     padding: 40px 20px;
-    text-align: center;
+    text-align: left;
 }
 
 nav {
     background-color: #7d031f;
     padding: 10px;
-    text-align: center;
+    text-align: left;
 }
 
 nav a {
@@ -56,4 +56,29 @@ nav a:hover {
 .logo {
     max-width: 150px;
     margin-bottom: 15px;
+}
+
+.brand-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+}
+
+.live-clock {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.15);
+    white-space: nowrap;
+}
+
+.live-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #53d769;
 }
