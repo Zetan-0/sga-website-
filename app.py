@@ -8,6 +8,6 @@ def home():
     return render_template('index.html')
 
 
-@app.route('/join')
+@app.route('/welcome')
 def join_page():
-    return render_template('join.html')
+    return render_template('welcome.html')
