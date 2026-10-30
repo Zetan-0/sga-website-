@@ -198,12 +198,12 @@
         }
 
         .top-bar-logo {
-            width: 300px;
-            height: 150px;
+            width: 200px;
+            height: 100px;
             object-fit: contain;
             align-self: center;
             flex: 0 0 auto;
-            transform: scale(1,1.9);
+            transform: scale(1,0.9);
         }
 
         .cta-row {
@@ -493,12 +493,8 @@
         <a href="#">Featured</a>
         <a href="#">Student Organizations</a>
         <a href="#">SGA Events</a>
-        <a href="#">Campus Events</a>
         <a href="#">Leaderboards</a>
-        <a href="#">Marketplace</a>
-        <a href="#">Why Attend</a>
-        <a href="#">Stay Connected</a>
-        <a href="#">About Us</a>
+        <a href="{{ url_for('marketplace') }}">Marketplace</a>
     </nav>
 
     <main class="hero-wrap">
@@ -582,22 +578,6 @@
         </div>
     </section>
 
-    <section class="campus-slider">
-        <div class="slider-header">
-            <h3>Weekly Buzz!</h3>
-        </div>
-
-        <div class="slides">
-            <div class="slide active">
-                <img id="heroImage" src="https://www.lynchburg.edu/wp-content/uploads/2020/09/Outdoor-Hopwood-student-faculty-600.jpg" alt="Weekly Buzz">
-                <div class="slide-overlay">
-                    <span id="slide-label">Loading...</span>
-                    <h4 id="slide-title">Loading...</h4>
-                </div>
-            </div>
-        </div>   
-    </section>
-
     <section class="ready-cta">
         <h2>Ready to Get Involved?</h2>
         <p>Start exploring the opportunities available through University of Lynchburg Student Government and campus life.</p>
@@ -606,6 +586,7 @@
 
     <footer>
         <p>Student Government Central · University of Lynchburg</p>
+        <p>About Us</p>
     </footer>
 
     <script>

@@ -1,4 +1,421 @@
 <!DOCTYPE html>
 <html lang="en">
+<head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SGA Marketplace</title>
+    <style>
+        :root {
+            color-scheme: light;
+            --ink: #252421;
+            --muted: #716e68;
+            --paper: #f7f6f2;
+            --white: #fff;
+            --line: #e5e2db;
+            --maroon: #7d031f;
+            --gold: #e8b94f;
+            --green: #315e4b;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            background: var(--paper);
+            color: var(--ink);
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        a { color: inherit; }
+        button { font: inherit; }
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 18px max(24px, calc((100% - 1180px) / 2));
+            background: var(--white);
+            border-bottom: 1px solid var(--line);
+        }
+
+        .wordmark {
+            color: var(--maroon);
+               
+        }
+
+        .marketplace {
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 40px 24px 64px;
+        }
+
+        .campaign {
+            padding: 36px;
+            margin-bottom: 36px;
+            border-radius: 16px;
+            color: var(--white);
+            background: linear-gradient(120deg, #7d031f, #481222);
+        }
+        
+        .campaign h1 {
+            max-width: 620px;
+            margin: 0 0 12px;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+        }
+
+        .campaign p {
+            max-width: 620px;
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        .section-heading {
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .section-heading h2 {
+            margin: 0 0 6px;
+        }
+
+        .section-heading p {
+            margin: 0;
+            color: var(--muted);
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 20px;
+        }
+
+        .product-card {
+            overflow: hidden;
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            background: var(--white);
+        }
+
+        .product-art {
+            display: grid;
+            min-height: 220px;
+            place-items: center;
+            background: #eee9e1;
+            font-size: 5rem;
+        }
+
+        .product-card:nth-child(2) .product-art { background: #e8edf0; }
+        .product-card:nth-child(3) .product-art { background: #f0e9d8; }
+        .product-card:nth-child(4) .product-art { background: #e6ece5; }
+
+        .product-info {
+            padding: 18px;
+        }
+
+        .product-info h3 {
+            margin: 0 0 8px;
+        }
+
+        .product-info p {
+            min-height: 42px;
+            margin: 0 0 14px;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        .product-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .price {
+            font-weight: 700;
+        }
+
+        .detail-button {
+            padding: 9px 13px;
+            border: 0;
+            border-radius: 6px;
+            color: var(--white);
+            background: var(--maroon);
+            cursor: pointer;
+        }
+
+        .detail-button:hover { background: #5e0017; }
+
+        .notice {
+            margin-top: 24px;
+            color: var(--muted);
+            font-size: .9rem;
+        }
+
+        dialog {
+            width: min(620px, calc(100% - 32px));
+            max-height: 85vh;
+            padding: 0;
+            border: 0;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px #0004;
+        }
+
+        dialog::backdrop { background: #17141199; }
+
+        .dialog-content { padding: 24px; }
+
+        .dialog-header {
+            display: flex;
+            align-items: start;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .dialog-header h2 { margin: 0 0 8px; }
+
+        .close-button {
+            border: 0;
+            background: transparent;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .detail-section {
+            padding-top: 16px;
+            border-top: 1px solid var(--line);
+        }
+
+        .detail-section h3 { margin-bottom: 8px; }
+
+        .detail-section ul {
+            padding-left: 20px;
+            line-height: 1.7;
+        }
+
+        @media (max-width: 600px) {
+            .marketplace { padding: 24px 16px 48px; }
+            .campaign { padding: 26px 22px; }
+            .section-heading { align-items: start; flex-direction: column; }
+            .special-item { grid-template-columns: 1fr; }
+        }
+
+        .special-item {
+            display: grid;
+            grid-template-columns: minmax(140px, 0.7fr) 2fr; 
+            align-items: center;
+            gap: 24px;
+            padding: 24px
+            margin-bottom: 36px;
+            border: 2px solid var(--gold);
+            border-radius: 16px;
+            background:var(--white);
+        }
+
+        .special-item-art {
+            display: grid;
+            min-height: 180px;
+            place-items: center;
+            border-radius: 10px;
+            background: #f0e9d8;
+            font-size: 5rem;
+        }
+
+        .special-label {
+            margin: 0 0 8px;
+            color: var(--maroon);
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        .special.item h2 {
+            margin: 0 0 8px;
+        }
+
+        .special-item p:not(.special-label) {
+            color: var(--muted);
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <header class="topbar">
+        <a class="wordmark" href="/">SGA Marketplace</a>
+        <span>Official SGA Merchandise</span>
+    </header>
+
+    <main class="marketplace">
+        <section class="campaign" aria-labelledby="campaign-title">
+            <h1 id="campaign-title">Show your Hornet pride!</h1>
+            <p>
+                Explore official SGA apparel, accessories, and student merchandise. Check back for new campus collections and marketplace updates.
+            </p>
+        </section>
+
+        <section aria-labelledby="products-title">
+            <div class="section-heading">
+                <div>
+                    <h2 id="products-title">Featured Items</h2>
+                    <p>Browse current SGA marketplace items.</p>
+                </div>
+            </div>
+
+            <div class="product-grid">
+                <article class="product-card">
+                    <div class="product-art" role="img" aria-label="Maroon T-shirt">👕</div>
+                    <div class="product-info">
+                        <h3>SGA Classic Tee</h3>
+                        <p>Soft cotton tee with a classic Hornet design.</p>
+                        <div class="product-footer">
+                            <span class="price">$20.00</span>
+                            <button class="detail-button" data-product="tee">View details</button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="product-card">
+                    <div class="product-art" role="img" aria-label="SGA Hoodie">🧥</div>
+                    <div class="product-info">
+                        <h3>SGA Hoodie</h3>
+                        <p>A cozy campus layer featuring SGA branding.</p>
+                        <div class="product-footer">
+                            <span class="price">$38.00</span>
+                            <button class="detail-button" data-product="hoodie">View details</button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="product-card">
+                    <div class="product-art" role="img" aria-label="SGA Mug">☕</div>
+                    <div class="product-info">
+                        <h3>SGA Mug</h3>
+                        <p>A ceramic mug for your desk, dorm, friends, or study session.</p>
+                        <div class="product-footer">
+                            <span class="price">$15.00</span>
+                            <button class="detail-button" data-product="mug">View details</button>
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="product-card">
+                    <div class="product-art" role="img" aria-label="SGA Tote Bag">👜</div>
+                    <div class="product-info">
+                        <h3>SGA Tote</h3>
+                        <p>A reusable everday bag for books, supplies, laptops, and other essentials.</p>
+                        <div class="product-footer">
+                            <span class="price">$15.00</span>
+                            <button class="detail-button" data-product="tote">View details<button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <p class="notice">
+                Prices and availability shown are examples. Confirm current merchandise details with the SGA store.
+            </p>
+        </section>
+
+        <section class="special-item" aria-labelledby="special-item-title">
+            <div class="special-item-art" role="img" aria-label="SGA Keychain">🐝</div>
+            <div>
+                <p class="special-label">Special item</p>
+                <h2 id="special-item-title">SGA Keychain</h2>
+                <p>
+                    A limited time keychain designed SGA for students who want more style.
+                    Check the details for sample contents and availability.
+                </p>
+                <div class="product-footer">
+                    <span class="price">$25.00</span>
+                    <button class="detail-button" data-product="special">View details</button>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <dialog id="product-dialog" aria-labelledby="detail-title">
+        <div class="dialog-content">
+            <div class="dialog-header">
+                <div>
+                    <h2 id="detail-title">Product details</h2>
+                    <p id="detail-description"></p>
+                </div>
+                <button class="close-button" id="close-dialog" aria-label="Close">*</button>
+            </div>
+
+            <section class="detail-section">
+                <h3>Specifications &amp; availability</h3>
+                <ul id="detail-specs"></ul>
+            </section>
+
+            <section class="detail-section">
+                <h3>Inventory audit trail</h3>
+                <ul id="detail-audit"></ul>
+            </section>
+        </div>
+    </dialog>
+
+    <script>
+        const products = {
+            tee: {
+                name: "SGA Classic Tee",
+                description: "Soft cotton tee with a classic Hornet design.",
+                specs: ["Material: cotton blend", "Sizes: S, M, L, XL", "Sample inventory: 24"],
+                audit: ["Sample entry: merchandise listing created."]
+            },
+            hoodie: {
+                name: "SGA Hoodie",
+                description: "A cozy campus layer featuring SGA branding.",
+                specs: ["Material: cotton-polyester blend", "Sizes: S, M, L, XL", "Sample inventory: 12"],
+                audit: ["Sample entry: merchandise listing created."]
+            },
+            mug: {
+                name: "SGA Mug",
+                description: "A ceramic mug for your desk, dorm, or study session.",
+                specs: ["Material: ceramic", "Capacity: 12 oz", "Sample inventory: 18"],
+                audit: ["Sample entry: merchandise listing created."]
+            },
+            tote: {
+                name: "SGA Tote",
+                description: "A reusable everyday bag for books, supplies, laptops, and other essentials.",
+                specs: ["Material: cotton canvas", "Size: one size", "Sample inventory: 15"],
+                audit: ["Sample entry: merchandise listing created."]
+            }
+            special: {
+                name: "SGA Keychain",
+                description: "A limited time keychain designed SGA for students who want more style."
+                specs: ["Includes: sample SGA keychain bundle", "Size: one size", "Sample inventory: 10"],
+                audit: ["Sample entry: merchandise listing created."]
+            }
+        };
+
+        const dialog = document.querySelector("#product-dialog");
+
+        document.querySelectorAll(".detail-button").forEach((button) => {
+            button.addEventListener("click", () => {
+                const product = products[button.dataset.product];
+                if (!product) return;
+
+                document.querySelector("#detail-title").textContent = product.name;
+                document.querySelector("#detail-description").textContent = product.description;
+                document.querySelector("#detail-specs").innerHTML =
+                    product.specs.map((item) => `<li>${item}</li`).join("");
+                document.querySelector("#detail-audit").innerHTML =
+                    product.audit.map((item) => `<li>${item}</li`).join("");
+
+                dialog.showModal();
+            });
+        });
+
+        document.querySelector("#close-dialog").addEventListener("click", () => {
+            if (event.target === dialog) dailog.close();
+        });
+    </script>
+</body>
+</html>
+
     
